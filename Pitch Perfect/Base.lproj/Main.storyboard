@@ -112,21 +112,27 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r97-4O-9nx">
                                         <rect key="frame" x="0.0" y="0.0" width="366" height="102"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1G-3y-ILJ">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M1G-3y-ILJ">
                                                 <rect key="frame" x="73" y="0.0" width="103.5" height="102"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="103.5" id="R3S-ux-32o"/>
                                                     <constraint firstAttribute="height" constant="102" id="Rrg-At-RX6"/>
                                                 </constraints>
                                                 <state key="normal" image="Fast"/>
+                                                <connections>
+                                                    <action selector="soundFilterButtonPressed:" destination="laZ-hI-5HA" eventType="touchUpInside" id="p6C-35-rzf"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AlA-6b-5dj" userLabel="Slow Button">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AlA-6b-5dj" userLabel="Slow Button">
                                                 <rect key="frame" x="194" y="0.0" width="103.5" height="102"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="102" id="Fhm-dr-MNV"/>
                                                     <constraint firstAttribute="width" constant="103.5" id="dep-qs-kvb"/>
                                                 </constraints>
                                                 <state key="normal" image="Slow"/>
+                                                <connections>
+                                                    <action selector="soundFilterButtonPressed:" destination="laZ-hI-5HA" eventType="touchUpInside" id="pBA-eW-cN1"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -142,13 +148,16 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHb-dr-vIy">
                                         <rect key="frame" x="0.0" y="110" width="366" height="102"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VCt-lu-73Y">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VCt-lu-73Y">
                                                 <rect key="frame" x="0.0" y="0.0" width="103.5" height="102"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="103.5" id="8y5-Ci-YUj"/>
                                                     <constraint firstAttribute="height" constant="102" id="IcF-4x-z1b"/>
                                                 </constraints>
                                                 <state key="normal" image="HighPitch"/>
+                                                <connections>
+                                                    <action selector="soundFilterButtonPressed:" destination="laZ-hI-5HA" eventType="touchUpInside" id="72Z-F9-Uew"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACK-Wb-H2G">
                                                 <rect key="frame" x="131.5" y="0.0" width="103.5" height="102"/>
@@ -157,14 +166,20 @@
                                                     <constraint firstAttribute="width" constant="103.5" id="R2W-C2-rYR"/>
                                                 </constraints>
                                                 <state key="normal" image="Pause"/>
+                                                <connections>
+                                                    <action selector="puaseButtonPressed:" destination="laZ-hI-5HA" eventType="touchUpInside" id="7Ee-7S-YSr"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L4C-aD-StB">
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L4C-aD-StB">
                                                 <rect key="frame" x="262.5" y="0.0" width="103.5" height="102"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="103.5" id="Q4J-Ta-byX"/>
                                                     <constraint firstAttribute="height" constant="102" id="xUu-qS-bLm"/>
                                                 </constraints>
                                                 <state key="normal" image="LowPitch"/>
+                                                <connections>
+                                                    <action selector="soundFilterButtonPressed:" destination="laZ-hI-5HA" eventType="touchUpInside" id="mQB-Sq-lqG"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -183,21 +198,27 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KeA-wD-UL3">
                                         <rect key="frame" x="0.0" y="220" width="366" height="102"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hQ2-CS-l2o">
+                                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hQ2-CS-l2o">
                                                 <rect key="frame" x="194" y="0.0" width="103.5" height="102"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="102" id="bPH-5m-OtU"/>
                                                     <constraint firstAttribute="width" constant="103.5" id="myM-LI-FRw"/>
                                                 </constraints>
                                                 <state key="normal" image="Reverb"/>
+                                                <connections>
+                                                    <action selector="soundFilterButtonPressed:" destination="laZ-hI-5HA" eventType="touchUpInside" id="BRK-fU-MJ1"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZJ-3Q-PAA">
+                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZJ-3Q-PAA">
                                                 <rect key="frame" x="73" y="0.0" width="103.5" height="102"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="102" id="30p-Vf-brV"/>
                                                     <constraint firstAttribute="width" constant="103.5" id="qp2-d2-F4A"/>
                                                 </constraints>
                                                 <state key="normal" image="Echo"/>
+                                                <connections>
+                                                    <action selector="soundFilterButtonPressed:" destination="laZ-hI-5HA" eventType="touchUpInside" id="wni-jG-Jua"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -246,7 +267,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K4A-dF-Ebq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="809" y="21"/>
+            <point key="canvasLocation" x="922" y="-179"/>
         </scene>
     </scenes>
     <resources>

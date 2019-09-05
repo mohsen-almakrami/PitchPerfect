@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class RecordingViewController: UIViewController {
 
@@ -14,6 +15,9 @@ class RecordingViewController: UIViewController {
     //MARK:- Varibles
     
     private var isRecording = false
+    private var audioRecorder : AVAudioRecorder!
+    private var recordingSession : AVAudioSession!
+    
     
     //MARK:- IBOutlets
     
@@ -26,6 +30,8 @@ class RecordingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       recordingSession = AVAudioSession.sharedInstance()
+        
         // Do any additional setup after loading the view.
     }
     
@@ -35,32 +41,100 @@ class RecordingViewController: UIViewController {
     //MARK:- IBActions
     
     @IBAction func recordButtonPressed(_ sender: UIButton) {
-    
         if !isRecording {
             isRecording.toggle()
             sender.setImage(UIImage(named: ImagesName.Stop), for: .normal)
             
+            if audioRecorder == nil {
+                
+                switch recordingSession.recordPermission {
+                case .granted:
+                    self.startRecording()
+                case .denied:
+                    self.deniedRecordPermission()
+                case .undetermined:
+                    recordingSession.requestRecordPermission { [unowned self] allowed in
+                        if allowed {
+                            self.startRecording()
+                        } else {
+                            self.deniedRecordPermission()
+                        }
+                    }
+                    
+                @unknown default:
+                    fatalError("record permission error")
+                }
+            } else {fatalError("audioRecorder is not nil")}
+            
         } else {
             isRecording.toggle()
             sender.setImage(UIImage(named: ImagesName.Record), for: .normal)
+            finishRecording(success: true)
+
+        }
+    }
+    
+    //MARK:- Recording Methods
+    
+    private func startRecording() {
+        let audioFileName = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(AudioFileName)
+        let settings = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 44100,
+            AVNumberOfChannelsKey: 2,
+            AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue
+        ]
+        
+        do {
             
+            try recordingSession.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+            try recordingSession.setActive(true)
+            
+            audioRecorder = try AVAudioRecorder(url: audioFileName, settings: settings)
+            guard let audioRecorder = audioRecorder else {
+                self.finishRecording(success: false)
+                return
+            }
+                audioRecorder.delegate = self
+                audioRecorder.prepareToRecord()
+                audioRecorder.record()
+  
+        } catch let error {
+            finishRecording(success: false)
+            fatalError("Recorder is catch error \(error.localizedDescription)")
+        }
+    }
+    
+    private func deniedRecordPermission() {
+        
+    }
+    
+    private func finishRecording(success: Bool) {
+        
+        audioRecorder?.stop()
+        audioRecorder = nil
+        
+        if !success {
+            isRecording.toggle()
+            recordButtonOutlet.setImage(UIImage(named: ImagesName.Record), for: .normal)
+            
+        } else {
             performSegue(withIdentifier: playFilterSegue, sender: nil)
         }
     }
+}
+
+extension RecordingViewController : AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
-    
-    
-    //MARK:- Helps Methods
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         
-        if segue.identifier == playFilterSegue {
-            
+        if !flag {
+            finishRecording(success: false)
         }
+        
+        
+        print("Recorder \(flag)")
     }
     
     
-
-
 }
-

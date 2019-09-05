@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 enum SoundFilter: Int {
     case slow = 1,fast,highPitch,lowPitch,echo,reverb
@@ -16,7 +17,8 @@ class PlayingFilterViewController: UIViewController {
 
     
     //MARK:- Varibles
-    
+    private var isPlaying = false
+    private var audioPlayer : AVAudioPlayer!
     
     //MARK:- IBOutlets
     
@@ -24,7 +26,7 @@ class PlayingFilterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        playAudio()
         // Do any additional setup after loading the view.
     }
     
@@ -67,5 +69,33 @@ class PlayingFilterViewController: UIViewController {
     
     //MARK:- Helps Methods
     
+    //MARK:- Playing Methods
     
+    private func playAudio() {
+        
+        if FileManager.default.fileExists(atPath: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(AudioFileName).path)
+        {
+            do
+            {
+                audioPlayer = try AVAudioPlayer(contentsOf: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(AudioFileName))
+                audioPlayer.delegate = self
+                audioPlayer.prepareToPlay()
+                audioPlayer.play()
+            }
+            catch let error{
+                print("Error \(error.localizedDescription)")
+            }
+            
+            
+        } else {
+            fatalError("No file is found")
+        }
+    }
+}
+
+extension PlayingFilterViewController : AVAudioPlayerDelegate {
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        print("Player \(flag)")
+    }
 }

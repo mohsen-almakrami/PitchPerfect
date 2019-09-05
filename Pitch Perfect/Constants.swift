@@ -14,13 +14,20 @@ import Foundation
 public let playFilterSegue = "PlayingFilterSegue"
 
 
+//MARK:
 
-
+public let AudioFileName = "audioRecord.m4a"
 
 //MARK:- ImagesName
 struct ImagesName {
 
     static let  Record = "Record"
     static let Stop = "Stop"
+    static func printFolderPath() {
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        NSLog("✅ \(documentsPath)")
+    }
 
 }
+
+

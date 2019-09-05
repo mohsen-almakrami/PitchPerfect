@@ -199,7 +199,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KeA-wD-UL3">
                                         <rect key="frame" x="0.0" y="220" width="366" height="102"/>
                                         <subviews>
-                                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hQ2-CS-l2o">
+                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hQ2-CS-l2o">
                                                 <rect key="frame" x="194" y="0.0" width="103.5" height="102"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="102" id="bPH-5m-OtU"/>
@@ -210,7 +210,7 @@
                                                     <action selector="soundFilterButtonPressed:" destination="laZ-hI-5HA" eventType="touchUpInside" id="BRK-fU-MJ1"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZJ-3Q-PAA">
+                                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZJ-3Q-PAA">
                                                 <rect key="frame" x="73" y="0.0" width="103.5" height="102"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="102" id="30p-Vf-brV"/>

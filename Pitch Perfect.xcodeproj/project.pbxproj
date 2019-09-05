@@ -14,6 +14,8 @@
 		82910BFB231F8E4A00301CFF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82910BF9231F8E4A00301CFF /* LaunchScreen.storyboard */; };
 		82910C06231F8E4A00301CFF /* Pitch_PerfectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82910C05231F8E4A00301CFF /* Pitch_PerfectTests.swift */; };
 		82910C11231F8E4A00301CFF /* Pitch_PerfectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82910C10231F8E4A00301CFF /* Pitch_PerfectUITests.swift */; };
+		8291A1992320D54600387CC3 /* PlayingFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8291A1982320D54600387CC3 /* PlayingFilterViewController.swift */; };
+		8291A19B2320D97800387CC3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8291A19A2320D97800387CC3 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		82910C0C231F8E4A00301CFF /* Pitch PerfectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pitch PerfectUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		82910C10231F8E4A00301CFF /* Pitch_PerfectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pitch_PerfectUITests.swift; sourceTree = "<group>"; };
 		82910C12231F8E4A00301CFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8291A1982320D54600387CC3 /* PlayingFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingFilterViewController.swift; sourceTree = "<group>"; };
+		8291A19A2320D97800387CC3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +102,9 @@
 			isa = PBXGroup;
 			children = (
 				82910BF0231F8E4900301CFF /* AppDelegate.swift */,
+				8291A19A2320D97800387CC3 /* Constants.swift */,
 				82910BF2231F8E4900301CFF /* RecordingViewController.swift */,
+				8291A1982320D54600387CC3 /* PlayingFilterViewController.swift */,
 				82910BF4231F8E4900301CFF /* Main.storyboard */,
 				82910BF7231F8E4A00301CFF /* Assets.xcassets */,
 				82910BF9231F8E4A00301CFF /* LaunchScreen.storyboard */,
@@ -258,6 +264,8 @@
 			files = (
 				82910BF3231F8E4900301CFF /* RecordingViewController.swift in Sources */,
 				82910BF1231F8E4900301CFF /* AppDelegate.swift in Sources */,
+				8291A1992320D54600387CC3 /* PlayingFilterViewController.swift in Sources */,
+				8291A19B2320D97800387CC3 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

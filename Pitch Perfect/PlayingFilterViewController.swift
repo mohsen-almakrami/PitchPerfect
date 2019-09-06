@@ -49,27 +49,21 @@ class PlayingFilterViewController: UIViewController {
         switch sender.tag {
         case SoundFilter.slow.rawValue:
             print("Slow")
-//            playAudioUnitTimePitch(type: .slow)
             playAudioUnit(type: .slow)
         case SoundFilter.fast.rawValue:
             print("fast")
-//            playAudioUnitTimePitch(type: .fast)
             playAudioUnit(type: .fast)
         case SoundFilter.highPitch.rawValue:
             print("highPitch")
-//            playAudioUnitTimePitch(type: .highPitch)
             playAudioUnit(type: .highPitch)
         case SoundFilter.lowPitch.rawValue:
             print("lowPitch")
-//            playAudioUnitTimePitch(type: .lowPitch)
             playAudioUnit(type: .lowPitch)
         case SoundFilter.echo.rawValue:
             print("echo")
-//            playAudioUnitDistortion()
             playAudioUnit(type: .echo)
         case SoundFilter.reverb.rawValue:
             print("reverb")
-//            playAudioUnitReverb()
             playAudioUnit(type: .reverb)
         default:
             fatalError("Wrong tag Number for button")
@@ -125,69 +119,30 @@ class PlayingFilterViewController: UIViewController {
         }
     }
     
-    
-    //MARK:- AudioUnitReverb
-    
-    private func playAudioUnitReverb() {
-        audioEngine.attach(audioPlayerNode)
-        audioEngine.attach(audioUnitReverb)
+    private func isAudioPlaying() -> Bool {
         
-        audioEngine.connect(audioPlayerNode, to: audioUnitReverb, format: nil)
-        audioEngine.connect(audioUnitReverb, to: audioEngine.outputNode, format: nil)
-        
-        do {
-            
-            try audioEngine.start()
-            audioPlayerNode.play()
-            soundEffect(type: SoundFilter.reverb, audioPlayerNode: audioPlayerNode, audioUnitTimePitch: nil, audioUnitReverb: audioUnitReverb, audioUnitDistortion: nil)
-        } catch let error {
-            fatalError("Error \(error.localizedDescription)")
+        if audioPlayerNode.isPlaying {
+            return true
         }
         
+        return false
     }
     
-    //MARK:- AudioUnitDistortion
-    private func playAudioUnitDistortion() {
-        audioEngine.attach(audioPlayerNode)
-        audioEngine.attach(audioUnitDistortion)
+    private func stopAudio() {
         
-        audioEngine.connect(audioPlayerNode, to: audioUnitDistortion, format: nil)
-        audioEngine.connect(audioUnitDistortion, to: audioEngine.outputNode, format: nil)
-        
-        do {
-            
-            try audioEngine.start()
-            audioPlayerNode.play()
-            soundEffect(type: SoundFilter.echo, audioPlayerNode: audioPlayerNode, audioUnitTimePitch: nil, audioUnitReverb: nil, audioUnitDistortion: audioUnitDistortion)
-        } catch let error {
-            fatalError("Error \(error.localizedDescription)")
-        }
-        
-    }
-    
-    
-    //MARK:- AudioUnitTimePitch
-    private func playAudioUnitTimePitch(type:SoundFilter) {
-        
-        
-
-        audioEngine.attach(audioPlayerNode)
-        audioEngine.attach(audioUnitTimePitch)
-        
-        audioEngine.connect(audioPlayerNode, to: audioUnitTimePitch, format: nil)
-        audioEngine.connect(audioUnitTimePitch, to: audioEngine.outputNode, format: nil)
-        
-        do {
-            
-            try audioEngine.start()
-            audioPlayerNode.play()
-            soundEffect(type: type, audioPlayerNode: audioPlayerNode, audioUnitTimePitch: audioUnitTimePitch, audioUnitReverb: nil, audioUnitDistortion: nil)
-        } catch let error {
-        fatalError("Error \(error.localizedDescription)")
+        if isAudioPlaying() {
+            audioPlayerNode.stop()
+            audioPlayerNode.reset()
+            audioEngine.stop()
+            audioEngine.reset()
         }
     }
-    
+  
     private func playAudioUnit(type:SoundFilter) {
+        
+        if isAudioPlaying() {
+           stopAudio()
+        }
         
         audioEngine.attach(audioPlayerNode)
         

@@ -85,11 +85,12 @@ class PlayingFilterViewController: UIViewController {
     
     
     
+    
+    
     @IBAction func recordANewSoundButtonPressed(_ sender: UIButton) {
         
+        removeAudioFile()
         self.dismiss(animated: true, completion: nil)
-        
-        //TODO:- remove the file from file manager
     }
     
     
@@ -138,6 +139,19 @@ class PlayingFilterViewController: UIViewController {
         }
     }
   
+    private func removeAudioFile() {
+        let file = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(AudioFileName)
+        if FileManager.default.fileExists(atPath: file.path){
+            do {
+                try FileManager.default.removeItem(at: file)
+            } catch let error {
+                fatalError("Error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    //MARK:- Sound Effects
+    
     private func playAudioUnit(type:SoundFilter) {
         
         if isAudioPlaying() {
@@ -181,7 +195,7 @@ class PlayingFilterViewController: UIViewController {
         }
     }
     
-    //MARK:- Sound Effects
+  
     
     private func soundEffect(type: SoundFilter,audioPlayerNode:AVAudioPlayerNode, audioUnitTimePitch: AVAudioUnitTimePitch?, audioUnitReverb: AVAudioUnitReverb?,audioUnitDistortion : AVAudioUnitDistortion?) {
         let file = try! AVAudioFile(forReading: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(AudioFileName))

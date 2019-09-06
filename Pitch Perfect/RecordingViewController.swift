@@ -52,6 +52,10 @@ class RecordingViewController: UIViewController {
                     self.startRecording()
                 case .denied:
                     self.deniedRecordPermission()
+                    if isRecording{
+                        isRecording.toggle()
+                        sender.setImage(UIImage(named: ImagesName.Record), for: .normal)
+                    }
                 case .undetermined:
                     recordingSession.requestRecordPermission { [unowned self] allowed in
                         if allowed {
@@ -106,11 +110,15 @@ class RecordingViewController: UIViewController {
     }
     
     private func deniedRecordPermission() {
-        
+        let alert = UIAlertController(title: "Error", message: "You have to grante access to the microphone from Settings", preferredStyle: .alert)
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelButton)
+        present(alert, animated: true, completion: nil)
     }
     
+    
+    
     private func finishRecording(success: Bool) {
-        
         audioRecorder?.stop()
         audioRecorder = nil
         

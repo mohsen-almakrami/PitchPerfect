@@ -44,35 +44,40 @@ class PlayingFilterViewController: UIViewController {
 
     @IBAction func soundFilterButtonPressed(_ sender: UIButton) {
         
-        if audioPlayerNode.isPlaying {
-            return
-        }
+        
         
         switch sender.tag {
         case SoundFilter.slow.rawValue:
             print("Slow")
-            playAudioUnitTimePitch(type: .slow)
+//            playAudioUnitTimePitch(type: .slow)
+            playAudioUnit(type: .slow)
         case SoundFilter.fast.rawValue:
             print("fast")
-            playAudioUnitTimePitch(type: .fast)
+//            playAudioUnitTimePitch(type: .fast)
+            playAudioUnit(type: .fast)
         case SoundFilter.highPitch.rawValue:
             print("highPitch")
-            playAudioUnitTimePitch(type: .highPitch)
+//            playAudioUnitTimePitch(type: .highPitch)
+            playAudioUnit(type: .highPitch)
         case SoundFilter.lowPitch.rawValue:
             print("lowPitch")
-            playAudioUnitTimePitch(type: .lowPitch)
+//            playAudioUnitTimePitch(type: .lowPitch)
+            playAudioUnit(type: .lowPitch)
         case SoundFilter.echo.rawValue:
             print("echo")
-            playAudioUnitDistortion()
+//            playAudioUnitDistortion()
+            playAudioUnit(type: .echo)
         case SoundFilter.reverb.rawValue:
             print("reverb")
-            playAudioUnitReverb()
+//            playAudioUnitReverb()
+            playAudioUnit(type: .reverb)
         default:
             fatalError("Wrong tag Number for button")
         }
         
         
     }
+    
     
     @IBAction func puaseButtonPressed(_ sender: UIButton) {
         
@@ -89,6 +94,8 @@ class PlayingFilterViewController: UIViewController {
     @IBAction func recordANewSoundButtonPressed(_ sender: UIButton) {
         
         self.dismiss(animated: true, completion: nil)
+        
+        //TODO:- remove the file from file manager
     }
     
     
@@ -96,11 +103,14 @@ class PlayingFilterViewController: UIViewController {
     
     private func playAudio() {
         
-        if FileManager.default.fileExists(atPath: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(AudioFileName).path)
+        let file = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(AudioFileName)
+        
+        
+        if FileManager.default.fileExists(atPath: file.path)
         {
             do
             {
-                audioPlayer = try AVAudioPlayer(contentsOf: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(AudioFileName))
+                audioPlayer = try AVAudioPlayer(contentsOf: file)
                 audioPlayer.delegate = self
                 audioPlayer.prepareToPlay()
                 audioPlayer.play()
@@ -174,6 +184,45 @@ class PlayingFilterViewController: UIViewController {
             soundEffect(type: type, audioPlayerNode: audioPlayerNode, audioUnitTimePitch: audioUnitTimePitch, audioUnitReverb: nil, audioUnitDistortion: nil)
         } catch let error {
         fatalError("Error \(error.localizedDescription)")
+        }
+    }
+    
+    private func playAudioUnit(type:SoundFilter) {
+        
+        audioEngine.attach(audioPlayerNode)
+        
+        switch type {
+        case .slow,.lowPitch,.highPitch,.fast:
+            audioEngine.attach(audioUnitTimePitch)
+
+            audioEngine.connect(audioPlayerNode, to: audioUnitTimePitch, format: nil)
+            audioEngine.connect(audioUnitTimePitch, to: audioEngine.outputNode, format: nil)
+            
+            soundEffect(type: type, audioPlayerNode: audioPlayerNode, audioUnitTimePitch: audioUnitTimePitch, audioUnitReverb: nil, audioUnitDistortion: nil)
+            
+        case .echo:
+            audioEngine.attach(audioUnitDistortion)
+            
+            audioEngine.connect(audioPlayerNode, to: audioUnitDistortion, format: nil)
+            audioEngine.connect(audioUnitDistortion, to: audioEngine.outputNode, format: nil)
+            
+            soundEffect(type: SoundFilter.echo, audioPlayerNode: audioPlayerNode, audioUnitTimePitch: nil, audioUnitReverb: nil, audioUnitDistortion: audioUnitDistortion)
+        
+        case .reverb:
+            audioEngine.attach(audioUnitReverb)
+            
+            audioEngine.connect(audioPlayerNode, to: audioUnitReverb, format: nil)
+            audioEngine.connect(audioUnitReverb, to: audioEngine.outputNode, format: nil)
+            
+            soundEffect(type: SoundFilter.reverb, audioPlayerNode: audioPlayerNode, audioUnitTimePitch: nil, audioUnitReverb: audioUnitReverb, audioUnitDistortion: nil)
+        }
+        
+        do {
+            
+            try audioEngine.start()
+            audioPlayerNode.play()
+        } catch let error {
+            fatalError("Error \(error.localizedDescription)")
         }
     }
     

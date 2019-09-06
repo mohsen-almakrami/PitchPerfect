@@ -48,23 +48,17 @@ class PlayingFilterViewController: UIViewController {
         
         switch sender.tag {
         case SoundFilter.slow.rawValue:
-            print("Slow")
-            playAudioUnit(type: .slow)
+            playAudioUnit(type: .slow)      // play slow effect
         case SoundFilter.fast.rawValue:
-            print("fast")
-            playAudioUnit(type: .fast)
+            playAudioUnit(type: .fast)      // play fast effect
         case SoundFilter.highPitch.rawValue:
-            print("highPitch")
-            playAudioUnit(type: .highPitch)
+            playAudioUnit(type: .highPitch) // play high pitch effect
         case SoundFilter.lowPitch.rawValue:
-            print("lowPitch")
-            playAudioUnit(type: .lowPitch)
+            playAudioUnit(type: .lowPitch)  // play low pitch effect
         case SoundFilter.echo.rawValue:
-            print("echo")
-            playAudioUnit(type: .echo)
+            playAudioUnit(type: .echo)      // play echo effect
         case SoundFilter.reverb.rawValue:
-            print("reverb")
-            playAudioUnit(type: .reverb)
+            playAudioUnit(type: .reverb)    // play reverb effect
         default:
             fatalError("Wrong tag Number for button")
         }
@@ -121,11 +115,9 @@ class PlayingFilterViewController: UIViewController {
     }
     
     private func isAudioPlaying() -> Bool {
-        
         if audioPlayerNode.isPlaying {
             return true
         }
-        
         return false
     }
     
@@ -221,9 +213,6 @@ class PlayingFilterViewController: UIViewController {
             audioUnitReverb?.wetDryMix = 40
             audioPlayerNode.scheduleFile(file, at: nil, completionHandler: nil)
         }
-    
- 
-    
     }
 }
 
